@@ -6,21 +6,23 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import springboot.feguti.springboot2.domain.Anime;
+import springboot.feguti.springboot2.service.AnimeService;
 import springboot.feguti.springboot2.util.DateUtil;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
-@RequestMapping("anime")
+@RequestMapping("animes")
 @Log4j2
 @RequiredArgsConstructor
 public class AnimeController {
     private final DateUtil dateUtil;
+    private final AnimeService animeService;
 
-    @GetMapping(path = "list")
+    @GetMapping
     public List<Anime> list(){
         log.info(dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
-        return List.of(new Anime("Kimetsu no Yaiba"), new Anime("FMA Brotherhood"));
+        return AnimeService.listAll();
     }
 }
