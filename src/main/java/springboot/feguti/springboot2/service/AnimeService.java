@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import springboot.feguti.springboot2.domain.Anime;
+import springboot.feguti.springboot2.exception.BadRequestException;
 import springboot.feguti.springboot2.mapper.AnimeMapper;
 import springboot.feguti.springboot2.repository.AnimeRepository;
 import springboot.feguti.springboot2.requests.AnimePostRequestBody;
@@ -24,7 +25,7 @@ public class AnimeService {
 
     public Anime findByIdOrThrowBadRequestException(long id) {
         return animeRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Anime not found"));
+                .orElseThrow(() -> new BadRequestException("Anime not found"));
     }
 
     public Anime save(AnimePostRequestBody animePostRequestBody) {
