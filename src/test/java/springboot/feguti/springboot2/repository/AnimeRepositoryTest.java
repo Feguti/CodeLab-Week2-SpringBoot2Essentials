@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import springboot.feguti.springboot2.domain.Anime;
+import springboot.feguti.springboot2.util.AnimeCreator;
 
 import javax.validation.ConstraintViolationException;
 import java.util.List;
@@ -23,7 +24,7 @@ class AnimeRepositoryTest {
     @DisplayName("Save persist anime when Successful")
     void save_PersistAnime_WhenSuccessful() {
 
-        Anime animeToBeSaved = createAnime();
+        Anime animeToBeSaved = AnimeCreator.createAnimeToBeSaved();
         Anime animeSaved = this.animeRepository.save(animeToBeSaved);
 
         Assertions.assertThat(animeSaved).isNotNull();
@@ -35,7 +36,7 @@ class AnimeRepositoryTest {
     @DisplayName("Save update anime when Successful")
     void save_UpdatesAnime_WhenSuccessful() {
 
-        Anime animeToBeSaved = createAnime();
+        Anime animeToBeSaved = AnimeCreator.createAnimeToBeSaved();
         Anime animeSaved = this.animeRepository.save(animeToBeSaved);
 
         animeSaved.setName("Horimiya");
@@ -52,7 +53,7 @@ class AnimeRepositoryTest {
     @DisplayName("Delete removes anime when Successful")
     void delete_RemovesAnime_WhenSuccessful() {
 
-        Anime animeToBeSaved = createAnime();
+        Anime animeToBeSaved = AnimeCreator.createAnimeToBeSaved();
         Anime animeSaved = this.animeRepository.save(animeToBeSaved);
 
         this.animeRepository.delete(animeSaved);
@@ -67,7 +68,7 @@ class AnimeRepositoryTest {
     @DisplayName("Find by name return list of anime when Successful")
     void findByName_ReturnsListOfAnime_WhenSuccessful() {
 
-        Anime animeToBeSaved = createAnime();
+        Anime animeToBeSaved = AnimeCreator.createAnimeToBeSaved();
         Anime animeSaved = this.animeRepository.save(animeToBeSaved);
 
         String name = animeSaved.getName();
@@ -100,9 +101,4 @@ class AnimeRepositoryTest {
 
     }
 
-    private Anime createAnime() {
-        return Anime.builder()
-                .name("Kimetsu no Yaiba")
-                .build();
-    }
 }
